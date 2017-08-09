@@ -73,7 +73,7 @@ soup = BeautifulSoup(html_page, 'html.parser')
 results = soup.find_all('h4')[0].text.encode('utf-8').strip()
 results = str(results).replace(':', '-')
 base_url = ''
-with open('pubs.csv', 'wb') as f:
+with open('pubs.csv', 'w') as f:
 	writer = csv.writer(f, delimiter='@', quoting=csv.QUOTE_MINIMAL)
 	title = results
 	link = base_url + url.encode('utf-8').strip()    # encode to utf-8
@@ -161,3 +161,12 @@ for f in folders:
 	except AttributeError:
 				print "AttributeError - There may be no images available yet."
 				pass
+# zip up all folders
+os.chdir('..')
+for pub_folder in os.listdir('.'):
+        if os.path.isdir(pub_folder):
+            shutil._make_zipfile(pub_folder, pub_folder)    # create a zip archive of the folder
+    #        shutil.rmtree(pub_folder)                       # delete the folder & contents
+
+    # return to previous directory
+os.chdir('..')
